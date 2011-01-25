@@ -247,6 +247,16 @@
                <scope>test</scope>
             </dependency>
          </dependencies>
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-jbossas</directory>
+               </testResource>
+            </testResources>
+         </build>
       </profile>
       <profile>
          <id>incontainer-remote</id>
@@ -273,6 +283,14 @@
             </dependency>
          </dependencies>
          <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-jbossas</directory>
+               </testResource>
+            </testResources>
             <plugins>
                <plugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -358,6 +376,53 @@
                   </configuration>
                </plugin>
             </plugins>
+         </build>
+      </profile>
+      <profile>
+         <id>incontainer-jetty-embedded</id>
+         <activation>
+            <activeByDefault>false</activeByDefault>
+            <property>
+               <name>incontainer-jetty-embedded</name>
+            </property>
+         </activation>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jetty-embedded-7</artifactId>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.eclipse.jetty</groupId>
+               <artifactId>jetty-webapp</artifactId>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.eclipse.jetty</groupId>
+               <artifactId>jetty-plus</artifactId>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.weld.servlet</groupId>
+               <artifactId>weld-servlet</artifactId>
+               <version>1.1.0.CR4</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.spec.javax.servlet.jsp</groupId>
+               <artifactId>jboss-jsp-api_2.2_spec</artifactId>
+               <scope>test</scope>
+            </dependency>
+         </dependencies>
+         <build>
+            <testResources>
+               <testResource>
+                  <directory>src/test/resources</directory>
+               </testResource>
+               <testResource>
+                  <directory>src/test/resources-jetty</directory>
+               </testResource>
+            </testResources>
          </build>
       </profile>
    </profiles>

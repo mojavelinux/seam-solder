@@ -50,13 +50,13 @@ public class ResourceLoaderTest
    public static Archive<?> deployment()
    {
       // hack to work around container differences atm
-      boolean isEmbedded = targetContainerAdapterClass().getName().contains(".embedded");
+      boolean isEmbeddedCdi = targetContainerAdapterClass().getName().contains("WeldEEMock");
       
       WebArchive war = baseDeployment().addPackage(ResourceLoaderTest.class.getPackage())
             .addResource("com/acme/foo1")
             .addResource("com/acme/foo2.properties");
       
-      if (isEmbedded)
+      if (isEmbeddedCdi)
       {
          war.addPackage(ResourceLoader.class.getPackage())
                .addManifestResource(EmptyAsset.INSTANCE, "beans.xml");

@@ -28,11 +28,16 @@ public class Deployments
 {
    public static WebArchive baseDeployment()
    {
-      return ShrinkWrap.create(WebArchive.class, "test.war")
+      WebArchive war = ShrinkWrap.create(WebArchive.class, "test.war")
          .addLibraries(
                MavenArtifactResolver.resolve("org.jboss.seam.solder", "seam-solder-api"),
                MavenArtifactResolver.resolve("org.jboss.seam.solder", "seam-solder-impl"))
          .addWebResource(EmptyAsset.INSTANCE, "beans.xml");
+      if (targetContainerAdapterClass().getName().contains("Jetty"))
+      {
+         war.addWebResource("jetty-env.xml").setWebXML("jetty-override-web.xml");
+      }
+      return war;
    }
    
    public static Class<? extends DeployableContainer> targetContainerAdapterClass()
